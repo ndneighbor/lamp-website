@@ -1,9 +1,9 @@
 import Head from "next/head";
-import Image from "next/image";
 import { useState, useEffect } from "react";
-import { jsx, ThemeProvider } from "@emotion/react";
+import { ThemeProvider } from "@emotion/react";
 import styled from "@emotion/styled";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import ReactHowler from "react-howler";
 
 // 4. Light mode when you click lamp, default dark, when lit you hear music
 // 5. Add the audio stuff into
@@ -36,6 +36,7 @@ const Container = styled.div`
   justify-content: center;
   align-self: center;
   font-family: "Papyrus";
+  height: 100vh;
 `;
 
 const LampText = styled.div`
@@ -51,12 +52,15 @@ export default function Home() {
 
   function handleImageClick() {
     setDarkMode(!darkMode);
-    console.log(darkMode);
   }
 
   return (
     <ThemeProvider theme={darkMode ? themeDark : themeLight}>
       <Container>
+        <ReactHowler
+          src="http://goldfirestudios.com/proj/howlerjs/sound.ogg"
+          playing={!darkMode}
+        />
         <div>
           <motion.img
             onClick={handleImageClick}
@@ -73,9 +77,6 @@ export default function Home() {
             width={500}
             height={500}
           ></motion.img>
-
-          {/* No copy at all. */}
-          {/* Need to add the wave effect into an animated */}
           <LampText>
             <motion.div
               animate={{
